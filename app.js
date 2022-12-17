@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 const songsRouter = require("./routes/ms/songs/songs");
+const likesRouter = require("./routes/ms/songs/likes");
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(cookieParser());
 const BASE_PATH = "/api/v1";
 
 app.use(`${BASE_PATH}/songs`, songsRouter);
+app.use(`${BASE_PATH}/likes`, likesRouter);
 
 module.exports = app;

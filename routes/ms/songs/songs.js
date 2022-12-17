@@ -2,7 +2,7 @@ const express = require("express");
 const { api } = require("../../shared/api");
 
 const router = express.Router();
-const BASE_PATH = process.env.BASE_PATH_SONGS;
+const BASE_PATH = process.env.SONGS_HOST;
 
 router.get("/", async function (req, res, next) {
   try {
