@@ -14,6 +14,10 @@ app.use(cookieParser());
 
 const BASE_PATH = "/api/v1";
 
+app.get(`${BASE_PATH}`, (req, res) => {
+  res.send('FastMusik API Gateway running!');
+});
+
 app.use(`${BASE_PATH}/songs`, songsRouter);
 app.use(`${BASE_PATH}/likes`, likesRouter);
 
