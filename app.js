@@ -18,6 +18,10 @@ app.use(passport.initialize());
 
 const BASE_PATH_SONGS = "/api/v1";
 
+app.get("/", (req, res) => {
+  res.send('FastMusik API Gateway running!');
+});
+
 app.use("/api/auth", authRouter);
 app.use(`${BASE_PATH_SONGS}/songs`, songsRouter);
 app.use(`${BASE_PATH_SONGS}/likes`, likesRouter);
