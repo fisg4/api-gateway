@@ -1,0 +1,8 @@
+apigateway:
+  replicaCount: 1
+
+jwtSecret: jwt_token_secret_here
+songsHost: required_value
+supportHost: required_value
+messagesHost: required_value
+usersHost: required_value

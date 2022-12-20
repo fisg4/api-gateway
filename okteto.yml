@@ -1,0 +1,18 @@
+build:
+  api-gateway:
+    context: .
+
+deploy:
+  - helm upgrade --install api-gateway chart
+    --set apigateway.image=${OKTETO_BUILD_API_GATEWAY_IMAGE}
+    --set jwtSecret=$JWT_SECRET
+    --set songsHost=$SONGS_HOST
+    --set supportHost=$SUPPORT_HOST
+    --set messagesHost=$MESSAGES_HOST
+    --set usersHost=$USERS_HOST
+
+dev:
+  apiGateway:
+    command: npm start
+    sync:
+      - .:/app
