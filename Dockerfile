@@ -10,6 +10,7 @@ RUN npm install
 COPY bin ./bin
 COPY routes ./routes
 COPY app.js .
+COPY passport.js .
 
 EXPOSE 3000
 
