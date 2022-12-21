@@ -1,7 +1,7 @@
 const passport = require("passport");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
-const { APIGateway } = require("./routes/shared/APIGateway");
+const APIGateway = require("./routes/shared/APIGateway");
 
 const BASE_PATH = process.env.USERS_HOST;
 
