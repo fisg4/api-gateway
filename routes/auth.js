@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const APIGateway = require("./shared/ApiGateway");
+const APIGateway = require("./shared/APIGateway");
 
 const router = express.Router();
 const BASE_PATH = process.env.USERS_HOST;
