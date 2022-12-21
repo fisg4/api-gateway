@@ -1,6 +1,6 @@
 const express = require("express");
 const passport = require("passport");
-const { APIGateway } = require("../../shared/APIGateway");
+const APIGateway = require("../../shared/APIGateway");
 
 const router = express.Router();
 const BASE_PATH = process.env.SONGS_HOST;
