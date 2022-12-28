@@ -8,6 +8,7 @@ const authRouter = require("./routes/auth");
 const songsRouter = require("./routes/ms/songs/songs");
 const likesRouter = require("./routes/ms/songs/likes");
 const ticketsRouter = require("./routes/ms/support/tickets");
+const reportsRouter = require("./routes/ms/support/reports");
 
 const app = express();
 
@@ -28,5 +29,7 @@ app.use("/api/auth", authRouter);
 app.use(`${BASE_PATH_SONGS}/songs`, songsRouter);
 app.use(`${BASE_PATH_SONGS}/likes`, likesRouter);
 app.use(`${BASE_PATH_SUPPORT}/tickets`, ticketsRouter);
+app.use(`${BASE_PATH_SUPPORT}/reports`, reportsRouter);
+
 
 module.exports = app;
