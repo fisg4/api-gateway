@@ -8,50 +8,56 @@ const REPORT_ENDPOINT = "/support/v1/reports";
 
 
 /* GET all reports */
-router.get("/", async function (req, res, next) {
-    try {
-        const response = await APIGateway.request({
-            basePath: BASE_PATH,
-            endpoint: REPORT_ENDPOINT,
-            method: "GET",
-            token: req.headers.authorization,
-        });
-        res.send(response.data);
-    } catch (error) {
-        console.log(error);
-        res.status(error.response).send(error.response.data);
-    }
-});
+router.get("/", passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: REPORT_ENDPOINT,
+                method: "GET",
+                token: req.headers.authorization,
+            });
+            res.send(response.data);
+        } catch (error) {
+            res.status(error.response).send(error.response.data);
+        }
+    });
 
 /* GET all reports by user id */
-router.get("/user/:id", async function (req, res, next) {
-    try {
-        const response = await APIGateway.request({
-            basePath: BASE_PATH,
-            endpoint: REPORT_ENDPOINT,
-            method: "GET",
-            token: req.headers.authorization,
-        });
-        res.send(response.data);
-    } catch (error) {
-        res.status(error.response.status).send(error.response.data);
-    }
-});
+router.get(
+    "/user/:id",
+    passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: REPORT_ENDPOINT,
+                method: "GET",
+                token: req.headers.authorization,
+            });
+            res.send(response.data);
+        } catch (error) {
+            res.status(error.response.status).send(error.response.data);
+        }
+    });
 
 /* GET report by id */
-router.get("/:id", async function (req, res, next) {
-    try {
-        const response = await APIGateway.request({
-            basePath: BASE_PATH,
-            endpoint: REPORT_ENDPOINT,
-            method: "GET",
-            token: req.headers.authorization,
-        });
-        res.send(response.data);
-    } catch (error) {
-        res.status(error.response.status).send(error.response.data);
-    }
-});
+router.get(
+    "/:id",
+    passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: REPORT_ENDPOINT,
+                method: "GET",
+                token: req.headers.authorization,
+            });
+            res.send(response.data);
+        } catch (error) {
+            res.status(error.response.status).send(error.response.data);
+        }
+    });
 
 /* POST report by normal user */
 router.post(
