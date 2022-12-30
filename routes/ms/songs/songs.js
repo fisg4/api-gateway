@@ -11,7 +11,11 @@ router.get("/", async function (req, res, next) {
       basePath: BASE_PATH,
       endpoint: req.originalUrl,
     });
-    res.send(response.data);
+    if (response.data.length > 0) {
+      res.send(response.data);
+    } else {
+      res.sendStatus(204);
+    }
   } catch (error) {
     res.status(error.response.status).send(error.response.data);
   }
