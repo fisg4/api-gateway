@@ -6,24 +6,56 @@ const router = express.Router();
 const BASE_PATH = process.env.SUPPORT_HOST;
 const TICKET_ENDPOINT = "/support/v1/tickets";
 
-router.get("/", async function (req, res, next) {
-    try {
-        const response = await APIGateway.request({
-            basePath: BASE_PATH,
-            endpoint: TICKET_ENDPOINT,
-        });
-        res.send(response.data);
-    } catch (error) {
-        console.log(error);
-        res.status(error.response).send(error.response.data);
+/* GET all tickets */
+router.get(
+    "/",
+    passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: TICKET_ENDPOINT,
+                method: "GET",
+                token: req.headers.authorization,
+            });
+            res.send(response.data);
+        } catch (error) {
+            console.log(error);
+            res.status(error.response).send(error.response.data);
+        }
     }
-});
+);
 
-router.get("/:id", async function (req, res, next) {
+/* GET all tickets by user id */
+router.get(
+    "/user/:id",
+    passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: TICKET_ENDPOINT,
+                method: "GET",
+                token: req.headers.authorization,
+            });
+            res.send(response.data);
+        } catch (error) {
+            res.status(error.response.status).send(error.response.data);
+        }
+    }
+);
+
+/* GET ticket by id */
+router.get(
+    "/:id",
+    passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
     try {
         const response = await APIGateway.request({
             basePath: BASE_PATH,
             endpoint: TICKET_ENDPOINT,
+            method: "GET",
+            token: req.headers.authorization,
         });
         res.send(response.data);
     } catch (error) {
@@ -31,6 +63,7 @@ router.get("/:id", async function (req, res, next) {
     }
 });
 
+/* POST ticket by normal user */
 router.post(
     "/",
     passport.authenticate("jwt", { session: false }),
@@ -50,25 +83,27 @@ router.post(
     }
 );
 
+/* PATCH ticket by admin */
 router.patch(
     "/:id",
     passport.authenticate("jwt", { session: false }),
     async function (req, res, next) {
-      try {
-        const response = await APIGateway.request({
-          basePath: BASE_PATH,
-          endpoint: TICKET_ENDPOINT,
-          method: "PATCH",
-          data: req.body,
-          token: req.headers.authorization,
-        });
-        res.status(response.status).json(response.data);
-      } catch (error) {
-        res.status(error.response.status).json(error.response.data);
-      }
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: TICKET_ENDPOINT,
+                method: "PATCH",
+                data: req.body,
+                token: req.headers.authorization,
+            });
+            res.status(response.status).json(response.data);
+        } catch (error) {
+            res.status(error.response.status).json(error.response.data);
+        }
     }
-  );
+);
 
+/* DELETE ticket by admin */
 router.delete(
     "/:id",
     passport.authenticate("jwt", { session: false }),

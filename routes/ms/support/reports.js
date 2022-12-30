@@ -8,7 +8,9 @@ const REPORT_ENDPOINT = "/support/v1/reports";
 
 
 /* GET all reports */
-router.get("/", passport.authenticate("jwt", { session: false }),
+router.get(
+    "/",
+    passport.authenticate("jwt", { session: false }),
     async function (req, res, next) {
         try {
             const response = await APIGateway.request({
@@ -21,7 +23,8 @@ router.get("/", passport.authenticate("jwt", { session: false }),
         } catch (error) {
             res.status(error.response).send(error.response.data);
         }
-    });
+    }
+);
 
 /* GET all reports by user id */
 router.get(
@@ -39,7 +42,8 @@ router.get(
         } catch (error) {
             res.status(error.response.status).send(error.response.data);
         }
-    });
+    }
+);
 
 /* GET report by id */
 router.get(
@@ -57,7 +61,8 @@ router.get(
         } catch (error) {
             res.status(error.response.status).send(error.response.data);
         }
-    });
+    }
+);
 
 /* POST report by normal user */
 router.post(
