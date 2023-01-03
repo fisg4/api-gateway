@@ -15,12 +15,13 @@ router.post("/", async function (req, res, next) {
       data: req.body,
     });
     const payload = {
-      id: response.data._id,
+      id: response.data.id,
       role: response.data.role,
       plan: response.data.plan,
       username: response.data.username,
       email: response.data.email,
     };
+    console.log(payload);
     const accessToken = generateAccessToken(payload, JWT_SECRET);
     res.status(200).send({
       message: "User authenticated",
