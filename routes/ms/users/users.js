@@ -86,5 +86,23 @@ router.post(
       }
     }
   );  
+
+router.post(
+  "/register",
+  // the token is not needed
+  async function (req, res, next) {
+    try {
+      const response = await APIGateway.request({
+        basePath: BASE_PATH,
+        endpoint: "api/v1/users",
+        method: "POST",
+        data: req.body,
+      });
+      res.send(response.data);
+    } catch (error) {
+      res.status(error.response.status).send(error.response.data);
+    }
+  }
+)
   
 module.exports = router;
