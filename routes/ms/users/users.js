@@ -24,6 +24,7 @@ router.post(
     async function (req, res, next) {
         try {
             const decodedToken = jwtDecode(req.headers.authorization);
+            // req.body.token = req.headers.authorization;
             const userId = decodedToken.id;
             // add the user id to the request body
             req.body.userId = userId;
@@ -31,9 +32,30 @@ router.post(
                 basePath: BASE_PATH,
                 endpoint: req.originalUrl,
                 method: "POST",
-                data: req.body
+                data: req.body,
+                token: req.headers.authorization
             });
             res.sendStatus(response.status);
+        } catch (error) {
+            res.status(error.response.status).send(error.response.data);
+        }
+    }
+);
+
+// delete user likes
+router.delete(
+    "/likes/:likeId",
+    passport.authenticate("jwt", { session: false }),
+    async function (req, res, next) {
+        try {
+            const response = await APIGateway.request({
+                basePath: BASE_PATH,
+                endpoint: req.originalUrl,
+                method: "DELETE",
+                data: req.body,
+                token: req.headers.authorization
+            });
+            res.status(response.status).send(response.data);
         } catch (error) {
             res.status(error.response.status).send(error.response.data);
         }
@@ -48,13 +70,10 @@ router.get(
         try {
             const decodedToken = jwtDecode(req.headers.authorization);
             const userId = decodedToken.id;
-            // add the user id to the request body
-            req.body.userId = userId;
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
-                endpoint: "api/v1/users/likes/all",
-                method: "GET",
-                data: req.body,
+                endpoint: "api/v1/users/likes/all" + `?userId=${userId}`,
+                method: "GET"
             });
             res.send(response.data);
         } catch (error) {
