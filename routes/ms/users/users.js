@@ -77,7 +77,7 @@ router.get(
             });
             res.send(response.data);
         } catch (error) {
-            res.status(error.response.status).send(error.response.data);
+          res.status(400).send({ message: "Bad request" });
         }
     }
 );
