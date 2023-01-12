@@ -144,4 +144,27 @@ router.delete(
   }
 );
 
+/* PUT user_data by user */
+router.patch(
+  "/me",
+  passport.authenticate("jwt", { session: false }),
+  async function (req, res, next) {
+      try {
+          const decodedToken = jwtDecode(req.headers.authorization);
+          console.log(decodedToken);
+          const userId = decodedToken.id;
+          const response = await APIGateway.request({
+              basePath: BASE_PATH,
+              endpoint: `api/v1/users/${userId}`,
+              method: "PUT",
+              data: req.body,
+              token: req.headers.authorization,
+          });
+          res.status(response.status).json(response.data);
+      } catch (error) {
+          res.status(error.response.status).json(error.response.data);
+      }
+  }
+);
+
 module.exports = router;
