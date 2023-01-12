@@ -13,6 +13,7 @@ router.get(
     passport.authenticate("jwt", { session: false }),
     async function (req, res, next) {
         try {
+            console.log(req.headers.authorization);
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
                 endpoint: REPORT_ENDPOINT,
@@ -21,7 +22,11 @@ router.get(
             });
             res.send(response.data);
         } catch (error) {
-            res.status(error.response).send(error.response.data);
+            if (error.response) {
+                res.status(error.response.status).send(error.response.data);
+            } else {
+                res.status(500).send("Internal server error. There are some problems with the request");
+            }
         }
     }
 );
@@ -34,13 +39,17 @@ router.get(
         try {
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
-                endpoint: REPORT_ENDPOINT,
+                endpoint: REPORT_ENDPOINT + "/user/" + req.params.id,
                 method: "GET",
                 token: req.headers.authorization,
             });
             res.send(response.data);
         } catch (error) {
-            res.status(error.response.status).send(error.response.data);
+            if (error.response) {
+                res.status(error.response.status).send(error.response.data);
+            } else {
+                res.status(500).send("Internal server error. There are some problems with the request");
+            }
         }
     }
 );
@@ -53,13 +62,17 @@ router.get(
         try {
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
-                endpoint: REPORT_ENDPOINT,
+                endpoint: REPORT_ENDPOINT + "/" + req.params.id,
                 method: "GET",
                 token: req.headers.authorization,
             });
             res.send(response.data);
         } catch (error) {
-            res.status(error.response.status).send(error.response.data);
+            if (error.response) {
+                res.status(error.response.status).send(error.response.data);
+            } else {
+                res.status(500).send("Internal server error. There are some problems with the request");
+            }
         }
     }
 );
@@ -79,7 +92,11 @@ router.post(
             });
             res.sendStatus(response.status);
         } catch (error) {
-            res.status(error.response.status).send(error.response.data);
+            if (error.response) {
+                res.status(error.response.status).send(error.response.data);
+            } else {
+                res.status(500).send("Internal server error. There are some problems with the request");
+            }
         }
     }
 );
@@ -92,14 +109,18 @@ router.patch(
         try {
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
-                endpoint: REPORT_ENDPOINT,
+                endpoint: REPORT_ENDPOINT + "/" + req.params.id,
                 method: "PATCH",
                 data: req.body,
                 token: req.headers.authorization,
             });
             res.status(response.status).json(response.data);
         } catch (error) {
-            res.status(error.response.status).json(error.response.data);
+            if (error.response) {
+                res.status(error.response.status).send(error.response.data);
+            } else {
+                res.status(500).send("Internal server error. There are some problems with the request");
+            }
         }
     }
 );
@@ -112,13 +133,17 @@ router.delete(
         try {
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
-                endpoint: REPORT_ENDPOINT,
+                endpoint: REPORT_ENDPOINT + "/" + req.params.id,
                 method: "DELETE",
                 token: req.headers.authorization,
             });
             res.sendStatus(response.status);
         } catch (error) {
-            res.status(error.response.status).send(error.response.data);
+            if (error.response) {
+                res.status(error.response.status).send(error.response.data);
+            } else {
+                res.status(500).send("Internal server error. There are some problems with the request");
+            }
         }
     }
 );
