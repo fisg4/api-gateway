@@ -57,7 +57,7 @@ router.post(
         data: req.body,
         token: req.headers.authorization,
       });
-      res.sendStatus(response.status);
+      res.status(response.status).send(response.data);
     } catch (error) {
       res.status(error.response.status).send(error.response.data);
     }
