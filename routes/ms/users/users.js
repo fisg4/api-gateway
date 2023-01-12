@@ -4,7 +4,7 @@ const jwtDecode = require('jwt-decode');
 const APIGateway = require("../../shared/APIGateway");
 
 const router = express.Router();
-const BASE_PATH = process.env.USERS_HOST;
+const BASE_PATH = process.env.USERS_HOST + "/";
 
 router.get("/", async function (req, res, next) {
   try {
