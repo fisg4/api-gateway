@@ -145,7 +145,7 @@ router.delete(
 );
 
 /* PUT user_data by user */
-router.patch(
+router.put(
   "/me",
   passport.authenticate("jwt", { session: false }),
   async function (req, res, next) {
