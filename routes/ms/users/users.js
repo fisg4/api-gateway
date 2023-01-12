@@ -123,5 +123,25 @@ router.post(
     }
   }
 )
-  
+
+// delete user account
+router.delete(
+  "/delete",
+  passport.authenticate("jwt", { session: false }),
+  async function (req, res, next) {
+      try {
+        const decodedToken = jwtDecode(req.headers.authorization);
+        const userId = decodedToken.id;
+        const response = await APIGateway.request({
+          basePath: BASE_PATH,
+          endpoint: `api/v1/users/${userId}`,
+          method: "DELETE",
+        });
+        res.send(response.data);
+      } catch (error) {
+        res.status(400).send({ message: "Bad request" });
+      }
+  }
+);
+
 module.exports = router;
