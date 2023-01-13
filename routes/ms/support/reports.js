@@ -13,7 +13,6 @@ router.get(
     passport.authenticate("jwt", { session: false }),
     async function (req, res, next) {
         try {
-            console.log(req.headers.authorization);
             const response = await APIGateway.request({
                 basePath: BASE_PATH,
                 endpoint: REPORT_ENDPOINT,
