@@ -19,7 +19,7 @@ router.get(
                 method: "GET",
                 token: req.headers.authorization,
             });
-            res.send(response.data);
+            res.send(response.data.content);
         } catch (error) {
             if (error.response) {
                 res.status(error.response.status).send(error.response.data);
@@ -42,7 +42,7 @@ router.get(
                 method: "GET",
                 token: req.headers.authorization,
             });
-            res.send(response.data);
+            res.send(response.data.content);
         } catch (error) {
             if (error.response) {
                 res.status(error.response.status).send(error.response.data);
@@ -65,7 +65,7 @@ router.get(
                 method: "GET",
                 token: req.headers.authorization,
             });
-            res.send(response.data);
+            res.send(response.data.content);
         } catch (error) {
             if (error.response) {
                 res.status(error.response.status).send(error.response.data);
@@ -89,7 +89,7 @@ router.post(
                 data: req.body,
                 token: req.headers.authorization,
             });
-            res.sendStatus(response.status);
+            res.send(response.data);
         } catch (error) {
             if (error.response) {
                 res.status(error.response.status).send(error.response.data);
@@ -113,7 +113,7 @@ router.patch(
                 data: req.body,
                 token: req.headers.authorization,
             });
-            res.status(response.status).json(response.data);
+            res.send(response.data);
         } catch (error) {
             if (error.response) {
                 res.status(error.response.status).send(error.response.data);
