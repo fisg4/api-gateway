@@ -55,4 +55,23 @@ router.post(
   }
 );
 
+router.post(
+  "/:id/translate",
+  passport.authenticate("jwt", { session: false }),
+  async function (req, res, next) {
+    try {
+      const response = await APIGateway.request({
+        basePath: BASE_PATH,
+        endpoint: req.originalUrl,
+        method: "POST",
+        data: req.body,
+        token: req.headers.authorization,
+      });
+      res.status(response.status).json(response.data);
+    } catch (error) {
+      res.status(error.response.status).json(error.response.data);
+    }
+  }
+);
+
 module.exports = router;
