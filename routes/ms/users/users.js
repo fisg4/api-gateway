@@ -151,7 +151,6 @@ router.put(
   async function (req, res, next) {
       try {
           const decodedToken = jwtDecode(req.headers.authorization);
-          console.log(decodedToken);
           const userId = decodedToken.id;
           const response = await APIGateway.request({
               basePath: BASE_PATH,
