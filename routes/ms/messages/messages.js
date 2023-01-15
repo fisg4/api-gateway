@@ -5,6 +5,8 @@ const APIGateway = require("../../shared/APIGateway");
 const router = express.Router();
 const BASE_PATH = process.env.MESSAGES_HOST;
 
+const INTERNAL_ERROR = "Internal server error. There are some problems with the request";
+
 router.get("/:id", async function (req, res, next) {
   try {
     const response = await APIGateway.request({
@@ -13,6 +15,11 @@ router.get("/:id", async function (req, res, next) {
     });
     res.status(response.status).json(response.data);
   } catch (error) {
+    if (!error.response) {
+      res.status(500).send(INTERNAL_ERROR);
+      return;
+    }
+
     res.status(error.response.status).json(error.response.data);
   }
 });
@@ -31,6 +38,11 @@ router.patch(
       });
       res.status(response.status).json(response.data);
     } catch (error) {
+      if (!error.response) {
+        res.status(500).send(INTERNAL_ERROR);
+        return;
+      }
+      
       res.status(error.response.status).json(error.response.data);
     }
   }
@@ -50,6 +62,11 @@ router.post(
       });
       res.status(response.status).json(response.data);
     } catch (error) {
+      if (!error.response) {
+        res.status(500).send(INTERNAL_ERROR);
+        return;
+      }
+      
       res.status(error.response.status).json(error.response.data);
     }
   }
@@ -69,6 +86,11 @@ router.post(
       });
       res.status(response.status).json(response.data);
     } catch (error) {
+      if (!error.response) {
+        res.status(500).send(INTERNAL_ERROR);
+        return;
+      }
+      
       res.status(error.response.status).json(error.response.data);
     }
   }
