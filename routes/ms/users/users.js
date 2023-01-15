@@ -133,12 +133,6 @@ router.get(
   "/profile/:userId",
   passport.authenticate("jwt", { session: false }),
   async function (req, res, next) {
-    const decodedToken = jwtDecode(req.headers.authorization);
-    let role = decodedToken.role;
-    if (role !== "admin") {
-      res.status(403).send("You are not authorized to access this resource");
-      return;
-    }
     try {
       const response = await APIGateway.request({
         basePath: BASE_PATH,
